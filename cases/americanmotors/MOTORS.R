@@ -48,7 +48,6 @@ while((up_lim>2 | (dn_lim<(-2))) && (nrow(motors.df)/row) > 0.95){
 }
 
 plot(rstandard(model))
-
 plot(cooks.distance(model))
 plot(model)
 summary(model)
