@@ -30,3 +30,20 @@ levels(housing.df[,14]) # None, Old, Recent
 class(housing.df$BEDROOMS) # integer
 class(housing.df[,1]) # numeric
 
+# Convert all categorical variables in the data frame into a set of dummy variables
+
+xtotal <- model.matrix(~0 + BEDROOMS + REMODEL, data=housing.df)
+xtotal <- as.data.frame(xtotal) # converting matrix back into data frame
+t(t(names(xtotal)))
+xtotal <- xtotal[,-4] # Dropping fourth variable
+
+# Imputting missing data with median
+
+# Convert few entires of bedrooms to NA's then we impute these missing values using the median of the remaining values
+rows.to.missing <- sample(row.names(housing.df),10)
+housing.df[rows.to.missing,]$BEDROOMS <- NA
+summary(housing.df$BEDROOMS)
+
+# replace missing value with median
+housing.df[rows.to.missing,]$BEDROOMS <- median(housing.df$BEDROOMS,na.rm = TRUE)
+summary(housing.df$BEDROOMS)
